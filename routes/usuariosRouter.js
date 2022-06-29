@@ -19,8 +19,8 @@ usuariosRouter.post('/', async (req, res, next) => {
         const { usuario, clave } = req.body;
         const vueltasSalt = 10;
 
-        if (clave.length !== 6) {
-            return next( {name: "ValidationError", message: "La clave debe tener 6 caracteres"} );
+        if (clave.length < 6 || clave.length > 20) {
+            return next( {name: "ValidationError", message: "La clave debe tener entre 6 y 20 caracteres"} );
         }
 
         const claveHash = await bcrypt.hash(clave, vueltasSalt);
